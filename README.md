@@ -10,7 +10,18 @@ python3 -m http.server 4173 --directory dist
 
 Abra http://localhost:4173.
 
-## Publicar na Cloudflare Pages
+## Publicar na Cloudflare Workers
+
+O arquivo `wrangler.jsonc` configura a publicação dos arquivos estáticos de `dist/`. No projeto Workers conectado ao GitHub, use:
+
+- Branch de produção: `main`
+- Comando de build: vazio
+- Comando de deploy: `npx wrangler deploy`
+- Diretório raiz: `/`
+
+Após publicar, adicione `giovanistuchi.com` na configuração de domínios do Worker.
+
+## Alternativa: Cloudflare Pages
 
 Conecte este repositório a um projeto Pages com:
 
