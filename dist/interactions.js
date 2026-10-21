@@ -100,3 +100,24 @@ projectDialog.addEventListener('keydown', event => {
   if (event.key === 'ArrowLeft') { event.preventDefault(); showProjectImage(activeImage - 1); }
   if (event.key === 'ArrowRight') { event.preventDefault(); showProjectImage(activeImage + 1); }
 });
+
+const themeToggle = document.createElement('button');
+themeToggle.type = 'button'; themeToggle.className = 'theme-toggle';
+themeToggle.innerHTML = '<span aria-hidden="true">◐</span>';
+document.querySelector('#language').before(themeToggle);
+function updateThemeControl() {
+  const light = document.documentElement.dataset.theme === 'light';
+  const label = isEnglish() ? 'Light theme' : 'Tema claro';
+  themeToggle.setAttribute('aria-label', label);
+  themeToggle.setAttribute('aria-pressed', String(light));
+  themeToggle.title = isEnglish() ? 'Toggle light and dark theme' : 'Alternar tema claro e escuro';
+  document.querySelector('meta[name="theme-color"]').content = light ? '#f3f4ed' : '#101312';
+}
+themeToggle.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem('portfolio-theme', next); } catch { /* Keep the in-page preference. */ }
+  updateThemeControl();
+});
+document.querySelector('#language').addEventListener('click', updateThemeControl);
+updateThemeControl();
