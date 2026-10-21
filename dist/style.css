@@ -23,3 +23,4 @@ header{position:sticky;top:0;z-index:20;background:rgba(16,19,18,.92);backdrop-f
 nav a[aria-current="location"]{color:var(--lime)}nav a[aria-current="location"]:after{transform:scaleX(1)}
 @media(prefers-reduced-transparency:reduce){header{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}}
 @media(prefers-contrast:more){header{background:var(--bg);border-bottom-color:var(--muted)}}
+.project[hidden]{display:none!important}.project-filters{display:flex;gap:9px;flex-wrap:wrap;margin-top:-12px}.project-filters button{border-radius:30px;padding:10px 17px;font:12px 'DM Sans',sans-serif;min-height:40px;transition:background-color .2s,color .2s,border-color .2s}.project-filters button[aria-pressed="true"]{background:var(--lime);color:var(--bg);border-color:var(--lime)}.filter-status{font:11px 'Space Grotesk',sans-serif;color:var(--muted);margin:17px 0 35px}
