@@ -21,11 +21,12 @@ if (!motionPreference.matches && 'IntersectionObserver' in window && 'animate' i
   revealTargets.forEach((element, index) => {
     // Deep links and already-visible sections appear immediately.
     const bounds = element.getBoundingClientRect();
-    if (location.hash || bounds.bottom <= 0) return;
+    if (bounds.bottom <= 0 || (location.hash && bounds.top < window.innerHeight)) return;
+    const projectDelay = element.matches('.project-copy') && element.closest('.project')?.querySelector('.project-gallery') ? 110 : 0;
     const animation = element.animate([
       { opacity: 0, transform: 'translateY(22px)' },
       { opacity: 1, transform: 'translateY(0)' }
-    ], { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both', delay: index < 3 ? index * 85 : 0 });
+    ], { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both', delay: index < 3 ? index * 85 : projectDelay });
     animation.pause();
     reveals.set(element, animation);
     animation.onfinish = () => { animation.cancel(); reveals.delete(element); };
@@ -37,7 +38,16 @@ if (!motionPreference.matches && 'IntersectionObserver' in window && 'animate' i
       if (element.contains(event.target)) animation.finish();
     });
   });
-  window.addEventListener('hashchange', finishReveals);
+  window.addEventListener('hashchange', () => {
+    const anchor = location.hash.slice(1);
+    const destination = anchor ? document.getElementById(decodeURIComponent(anchor)) : null;
+    reveals.forEach((animation, element) => {
+      if (destination?.contains(element)) {
+        animation.finish();
+        revealObserver.unobserve(element);
+      }
+    });
+  });
   window.addEventListener('pageshow', event => { if (event.persisted) finishReveals(); });
 }
 motionPreference.addEventListener('change', event => {
