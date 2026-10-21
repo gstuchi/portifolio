@@ -43,3 +43,38 @@ if (!motionPreference.matches && 'IntersectionObserver' in window && 'animate' i
 motionPreference.addEventListener('change', event => {
   if (event.matches) finishReveals();
 });
+
+// One passive, frame-throttled update for section navigation and reading progress.
+const pageProgress = document.createElement('div');
+pageProgress.className = 'page-progress';
+pageProgress.setAttribute('aria-hidden', 'true');
+document.body.append(pageProgress);
+const navigationSections = [...document.querySelectorAll('nav a[href^="#"]')]
+  .map(link => ({ link, section: document.querySelector(link.getAttribute('href')) }))
+  .filter(item => item.section);
+let scrollFramePending = false;
+function updateScrollNavigation() {
+  const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollRange > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollRange)) : 0;
+  pageProgress.style.transform = `scaleX(${progress})`;
+  const readingLine = Math.min(window.innerHeight * .4, 300);
+  let activeSection;
+  navigationSections.forEach(item => {
+    if (item.section.getBoundingClientRect().top <= readingLine) activeSection = item;
+  });
+  if (progress >= .99) activeSection = navigationSections.at(-1);
+  navigationSections.forEach(item => {
+    if (item === activeSection) item.link.setAttribute('aria-current', 'location');
+    else item.link.removeAttribute('aria-current');
+  });
+  scrollFramePending = false;
+}
+function scheduleScrollNavigation() {
+  if (scrollFramePending) return;
+  scrollFramePending = true;
+  requestAnimationFrame(updateScrollNavigation);
+}
+window.addEventListener('scroll', scheduleScrollNavigation, { passive: true });
+window.addEventListener('resize', scheduleScrollNavigation);
+window.addEventListener('load', scheduleScrollNavigation);
+updateScrollNavigation();

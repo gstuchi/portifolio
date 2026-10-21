@@ -17,3 +17,9 @@ nav a:hover:after,nav a:focus-visible:after,.contact-links a:hover:after,.contac
 .desktop-screen img,.screen-thumbs img{transition:transform .6s cubic-bezier(.22,1,.36,1)}
 @media(hover:hover) and (pointer:fine){.desktop-screen:hover img,.screen-thumbs a:hover img{transform:scale(1.025)}.phone-screens img{transition:transform .5s cubic-bezier(.22,1,.36,1)}.phone-screens a:hover img{transform:translateY(-6px)}}
 @media(prefers-reduced-motion:reduce){nav a:after,.contact-links a:after{transition:none}#language,.round-link b,.desktop-screen img,.screen-thumbs img,.phone-screens img{transition:none!important}.round-link:hover b,.desktop-screen:hover img,.screen-thumbs a:hover img,.phone-screens a:hover img{transform:none!important}}
+/* A quiet, persistent reference while exploring the portfolio. */
+header{position:sticky;top:0;z-index:20;background:rgba(16,19,18,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.page-progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--lime);transform:scaleX(0);transform-origin:left;z-index:30;pointer-events:none}
+nav a[aria-current="location"]{color:var(--lime)}nav a[aria-current="location"]:after{transform:scaleX(1)}
+@media(prefers-reduced-transparency:reduce){header{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}}
+@media(prefers-contrast:more){header{background:var(--bg);border-bottom-color:var(--muted)}}
