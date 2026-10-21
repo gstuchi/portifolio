@@ -15,7 +15,7 @@ filterStatus.className = 'filter-status';
 filterStatus.setAttribute('role', 'status');
 function updateFilterStatus() {
   const count = projectItems.filter(item => !item.hidden).length;
-  filterStatus.textContent = isEnglish() ? `${count} projects` : `${count} projetos`;
+  filterStatus.textContent = isEnglish() ? `${count} ${count === 1 ? "project" : "projects"}` : `${count} ${count === 1 ? "projeto" : "projetos"}`;
   filters.setAttribute('aria-label', isEnglish() ? 'Filter projects' : 'Filtrar projetos');
   window.dispatchEvent(new Event('resize'));
 }
