@@ -34,8 +34,11 @@ Em **Custom domains**, adicione `giovanistuchi.com` e siga a configuração de D
 
 ## Estrutura
 
-- `dist/index.html`: conteúdo e estrutura.
-- `dist/style.css`: layout responsivo e efeitos visuais.
-- `dist/script.js`: troca de idioma.
+Layout de página única com barra lateral fixa (perfil, assinatura, redes, currículo e e-mail), inspirado no template [Developer Portfolio with Sticky Sidebar](https://21st.dev/@kedhareswer/templates/developer-portfolio-template-with-sticky-sidebar) e recriado sem dependências.
+
+- `dist/index.html`: conteúdo e estrutura, com os textos em português e inglês (`data-pt` / `data-en`).
+- `dist/style.css`: layout responsivo, temas claro e escuro e animações.
+- `dist/theme.js`: aplica tema e idioma salvos antes da página aparecer.
+- `dist/script.js`: idioma, tema, filtros, galeria, destaques da experiência e cópia do e-mail.
 - `dist/assets/`: imagens utilizadas no site.
 - `dist/resume.pdf`: currículo para download.
