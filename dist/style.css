@@ -226,6 +226,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .skill[hidden] { display: none; }
 .skill:hover { background: var(--soft); }
 .skill-name { font-size: 13px; transition: transform .35s var(--spring); }
+.skill-name small { margin-left: 8px; font-size: 11px; color: var(--faint); }
 .skill:hover .skill-name { transform: translateX(3px); }
 .skill-lvl { font-size: 11px; color: var(--muted); text-align: right; transition: color .25s; }
 .skill:hover .skill-lvl { color: var(--accent-ink); }
