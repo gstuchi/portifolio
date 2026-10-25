@@ -33,7 +33,7 @@ function updateThemeControl() {
   themeButton.setAttribute('aria-pressed', String(isDark()));
   themeButton.setAttribute('aria-label', t('Tema escuro', 'Dark theme'));
   themeButton.title = t('Alternar tema claro e escuro', 'Toggle light and dark theme');
-  $('meta[name="theme-color"]').content = isDark() ? '#15110e' : '#faf6f0';
+  $('meta[name="theme-color"]').content = isDark() ? '#262624' : '#faf9f5';
 }
 themeButton.addEventListener('click', () => {
   root.dataset.theme = isDark() ? 'light' : 'dark';
