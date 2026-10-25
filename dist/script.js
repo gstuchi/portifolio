@@ -136,13 +136,37 @@ setupTabs($('.project-tabs'), filter => {
 });
 languageListeners.push(updateProjectStatus);
 
+// Skills: 20-segment meters that fill in sequence whenever a category is shown.
 const skills = $$('.skill');
-setupTabs($('.skill-tabs'), filter => {
-  skills.forEach(skill => {
-    skill.hidden = filter !== 'all' && skill.dataset.cat !== filter;
-    if (!skill.hidden) fadeIn(skill);
-  });
+skills.forEach(skill => {
+  const level = Number(skill.dataset.level);
+  $('.meter', skill).append(...Array.from({ length: 20 }, (_, index) => {
+    const segment = document.createElement('i');
+    segment.style.setProperty('--i', index);
+    if (index < level) segment.dataset.on = '';
+    return segment;
+  }));
 });
+function fillSkills() {
+  const visible = skills.filter(skill => !skill.hidden);
+  visible.forEach(skill => skill.removeAttribute('data-filled'));
+  void $('.skills').offsetWidth; // Commit the empty state so the fill transitions run.
+  visible.forEach(skill => { skill.dataset.filled = ''; });
+}
+setupTabs($('.skill-tabs'), filter => {
+  skills.forEach(skill => { skill.hidden = skill.dataset.cat !== filter; });
+  fillSkills();
+});
+if ('IntersectionObserver' in window) {
+  const skillsObserver = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    fillSkills();
+    skillsObserver.disconnect();
+  }, { threshold: .25 });
+  skillsObserver.observe($('.skills'));
+} else {
+  fillSkills();
+}
 
 // Experience: clicking a tag highlights every role that used it.
 const entries = $$('#experience .entry');

@@ -4,6 +4,7 @@
   --paper-d: #15110e;
   --ink-d: #f1ebe3;
   --accent: #e5553b;
+  --accent-ink: #e5553b;
   --serif: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052, Palatino, "Book Antiqua", Georgia, serif;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(.2, .8, .2, 1);
@@ -216,13 +217,18 @@ ul { list-style: none; margin: 0; padding: 0; }
 .fold > div { overflow: hidden; }
 
 /* Skills */
-.skills { display: grid; }
-.skill { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--line); transition: opacity .25s; }
+.skills { display: grid; gap: 2px; }
+.skill { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px 12px; align-items: baseline; padding: 11px 10px; margin: 0 -10px; border-radius: 6px; transition: background .25s; }
 .skill[hidden] { display: none; }
-.skill-name { font-size: 13px; position: relative; padding-left: 14px; }
-.skill-name::before { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 1px; background: var(--soft3); transition: background .2s, transform .3s var(--spring); }
-.skill:hover .skill-name::before { background: var(--accent); transform: rotate(45deg); }
-.skill-use { font-size: 11px; color: var(--muted); text-align: right; }
+.skill:hover { background: var(--soft); }
+.skill-name { font-size: 13px; transition: transform .35s var(--spring); }
+.skill:hover .skill-name { transform: translateX(3px); }
+.skill-lvl { font-size: 11px; color: var(--muted); text-align: right; transition: color .25s; }
+.skill:hover .skill-lvl { color: var(--accent-ink); }
+.meter { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; height: 6px; }
+.meter i { border-radius: 1px; background: var(--soft2); transition: background .3s ease, transform .3s var(--spring); transition-delay: calc(var(--i) * 22ms); }
+.skill[data-filled] .meter i[data-on] { background: var(--ink); }
+.skill[data-filled]:hover .meter i[data-on] { background: var(--accent); transform: scaleY(1.35); }
 
 /* Contact */
 .contact { padding-bottom: 30px; }
