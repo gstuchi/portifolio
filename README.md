@@ -1,2 +1,2 @@
-# Giovani Stuchi — Portfólio
+# Giovani Stuchi — My Portfólio
 
